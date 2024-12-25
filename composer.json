@@ -25,6 +25,11 @@
     "friendsofphp/php-cs-fixer": "^3.9",
     "phpstan/phpstan": "^2.0"
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Pkg6\\KvSettings\\Tests\\": "tests/"
+    }
+  },
   "scripts": {
     "fixer": "./vendor/bin/php-cs-fixer fix",
     "tests": "./vendor/bin/phpunit",

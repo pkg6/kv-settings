@@ -12,7 +12,7 @@ This source file is subject to the MIT license that is bundled.
 EOF;
 
 $finder = PhpCsFixer\Finder::create()
-    ->in([__DIR__ . '/src']);
+    ->in([__DIR__ . '/src',__DIR__ . '/tests']);
 
 return (new PhpCsFixer\Config())
     ->setRules([

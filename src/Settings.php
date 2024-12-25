@@ -45,26 +45,30 @@ class Settings
      */
     public function getDriver(): DriverInterface
     {
-        if (!is_null($this->context)) {
+        if ( ! is_null($this->context)) {
             if (method_exists($this->driver, 'context')) {
                 $this->driver->context($this->context);
             }
         }
+
         return $this->driver;
     }
 
     /**
      * @param \Pkg6\KvSettings\Contracts\DriverInterface $driver
+     *
      * @return $this
      */
     public function setDriver(DriverInterface $driver)
     {
         $this->driver = $driver;
+
         return $this;
     }
 
     /**
      * @param \Pkg6\KvSettings\Contracts\ContextInterface|null $context
+     *
      * @return $this
      */
     public function context(ContextInterface $context = null)
@@ -76,7 +80,9 @@ class Settings
 
     /**
      * @param $key
+     *
      * @return mixed
+     *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function forget($key)
@@ -95,7 +101,9 @@ class Settings
     /**
      * @param $key
      * @param $default
+     *
      * @return mixed|null
+     *
      * @throws \throwable
      */
     public function get($key, $default = null)
@@ -119,6 +127,7 @@ class Settings
 
     /**
      * @param $key
+     *
      * @return mixed
      */
     public function has($key)
@@ -133,7 +142,9 @@ class Settings
     /**
      * @param string $key
      * @param $value
+     *
      * @return null
+     *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function set(string $key, $value = null)
@@ -141,7 +152,7 @@ class Settings
         $key = $this->normalizeKey($key);
         // We really only need to update the value if is has changed
         // to prevent the cache being reset on the key.
-        if (!$this->shouldSetNewValue($key, $value)) {
+        if ( ! $this->shouldSetNewValue($key, $value)) {
             $this->context();
 
             return null;
@@ -166,6 +177,7 @@ class Settings
      * @param bool $default
      *
      * @return bool
+     *
      * @throws \throwable
      */
     public function isFalse(string $key, $default = false): bool
@@ -180,6 +192,7 @@ class Settings
      * @param bool $default
      *
      * @return bool
+     *
      * @throws \throwable
      */
     public function isTrue(string $key, $default = true): bool
@@ -204,16 +217,17 @@ class Settings
      * @param $newValue
      *
      * @return bool
+     *
      * @throws \throwable
      */
     protected function shouldSetNewValue(string $key, $newValue): bool
     {
-        if (!$this->cacheIsEnabled()) {
+        if ( ! $this->cacheIsEnabled()) {
             return true;
         }
         $currentContext = $this->context;
         $currentValue = $this->get($key);
-        $shouldUpdate = $currentValue !== $newValue || !$this->has($key);
+        $shouldUpdate = $currentValue !== $newValue || ! $this->has($key);
         // Now that we've made our calls, we can set our context back to what it was.
         $this->context($currentContext);
 
